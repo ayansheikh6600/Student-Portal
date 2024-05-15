@@ -119,7 +119,7 @@ onChange={(e)=>setEmail(e.target.value)}
               </div>
             </div>
             <div>
-              <p className="text-[13px]  flex justify-between px-1">Don't Have An Account <Link href={"/signup"} className="text-indigo-600 font-bold">SIGNUP?</Link> </p>
+              <p className="text-[13px]  flex justify-between px-1">{"Don't Have An Account"} <Link href={"/signup"} className="text-indigo-600 font-bold">SIGNUP?</Link> </p>
             </div>
             <div>
               <button
