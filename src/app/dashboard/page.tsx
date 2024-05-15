@@ -7,11 +7,13 @@ import { useRouter } from 'next/navigation';
 const Dashboard = () => {
     const router = useRouter();
 
-    const [user, setUser] = useState()
+    const [user, setUser] = useState(Object)
     
     useEffect(() => {
+
+      const storedUser = localStorage.getItem("user");
         
-         const data = JSON.parse(localStorage.getItem("user"))
+         const data = storedUser ? JSON.parse(storedUser) : null;
          console.log(data?.user);
 
        setUser(data?.user)
