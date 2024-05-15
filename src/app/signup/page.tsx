@@ -11,7 +11,7 @@ const Signup = () => {
     const [password, setPasswd] = useState("")
     const [rollNo, setRollNo] = useState("")
     const [userName, setUserName] = useState("")
-    const [file, setFile] = useState("")
+    const [file, setFile] = useState<File | null>(null);
     const [userType, setUserType] = useState("admin")
     const router = useRouter()
 
@@ -54,6 +54,13 @@ const Signup = () => {
           
           
     }
+
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files.length > 0) {
+        setFile(e.target.files[0]);
+      }
+    };
 
 
 
@@ -175,7 +182,7 @@ const Signup = () => {
                   type="file"
                   autoComplete="current-password"
                   required
-                  onChange={(e)=>setFile(e.target.files[0])}
+                  onChange={handleFileChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
