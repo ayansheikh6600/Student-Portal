@@ -25,9 +25,14 @@ const pages = [{
 const settings = [{name:'Profile',  path :"/profile"}, {name:'Dashboard',  path :"/dashboard"},];
 
 function ResponsiveAppBar() {
+
+    interface User {
+        imageURL: string;
+        // Add other properties of the user object if necessary
+      }
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-    const [user, setUser] = React.useState<null | HTMLElement>(null);
+    const [user, setUser] = React.useState<User | null>(null);
 
     const router = useRouter()
 
