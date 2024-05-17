@@ -41,7 +41,7 @@ export default function Home() {
       </div>
       <div className="container mx-auto">
         <h1 className="text-3xl text-center font-bold mt-3">
-          All Topic & Video's
+          {"All Topic & Video's"}
         </h1>
         <YouTube data={topicApiData}/>
       </div>

@@ -166,7 +166,7 @@ const AdminCom = ({ user }) => {
             </button>
           </div>
           <div className="">
-            <h1 className="text-2xl font-bold text-center">Topic's</h1>
+            <h1 className="text-2xl font-bold text-center">{"Topic's"}</h1>
             <YouTube data={topicApiData}/>
           </div>
           </>
