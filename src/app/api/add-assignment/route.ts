@@ -1,7 +1,7 @@
 import { connectToDatabase, getDb } from "@/libs/mongo";
 import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
-import { ObjectId } from 'mongodb';
+import { ObjectId } from "mongodb";
 
 export const POST = async (req: Request, res: NextApiResponse) => {
   const body = await req.json();
@@ -68,12 +68,10 @@ export const GET = async (req: Request, res: NextApiResponse) => {
   }
 };
 
-
 export const PUT = async (req: Request, res: NextApiResponse) => {
-
   const { searchParams }: any = new URL(req.url);
   const my_param = new ObjectId(searchParams.get("id"));
-  console.log(my_param, "zxcvbnsdfghxcvbsdf")
+  console.log(my_param, "zxcvbnsdfghxcvbsdf");
 
   if (req.method === "PUT") {
     await connectToDatabase();
@@ -81,33 +79,41 @@ export const PUT = async (req: Request, res: NextApiResponse) => {
     try {
       const db = getDb();
 
-      const assignments = await db.collection("assignments").findOne({ _id: my_param })
+      const body = await req.json();
+
+      const assignments = await db
+        .collection("assignments")
+        .findOne({ _id: my_param });
 
       if (assignments) {
-        assignments.turnIn ? assignments.turnIn.push({
-          repoLink: "sss",
-          user: "rtyufg",
-          time  : new Date()
-        }) : assignments.turnIn = [{
-          repoLink: "sss",
-          user: "rtyufg",
-          time  : new Date()
-        }]
-        const result = await db.collection('assignments').updateOne(
-          { _id: my_param },
-          { $set: assignments }
-        );
+        assignments.turnIn
+          ? assignments.turnIn.push({
+              repoLink: body?.repoLink,
+              isCheck: false,
+              time: new Date(),
+              user: body?.user,
+            })
+          : (assignments.turnIn = [
+              {
+                repoLink: body?.repoLink,
+                isCheck: false,
+                time: new Date(),
+                user: body?.user,
+              },
+            ]);
+        const result = await db
+          .collection("assignments")
+          .updateOne({ _id: my_param }, { $set: assignments });
 
         if (result.modifiedCount === 0) {
           return NextResponse.json(
             { message: "Failed to update the document", data: assignments },
             { status: 500 }
           );
-
         } else {
           return NextResponse.json(
-            { message: "Update Succes", data: assignments },
-            { status: 200 }
+            { message: "Update Successfully", data: assignments },
+            { status: 204 }
           );
         }
       } else {
@@ -118,14 +124,10 @@ export const PUT = async (req: Request, res: NextApiResponse) => {
       }
 
       // Send success response
-
     } catch (error: any) {
       // Handle errors
       console.error(error);
-      return NextResponse.json(
-        { message: error.message },
-        { status: 500 }
-      );
+      return NextResponse.json({ message: error.message }, { status: 500 });
     }
   } else {
     // Handle other HTTP methods
@@ -134,6 +136,4 @@ export const PUT = async (req: Request, res: NextApiResponse) => {
       { status: 405 }
     );
   }
-
-
-}
+};
