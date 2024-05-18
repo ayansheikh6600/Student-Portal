@@ -47,7 +47,8 @@ export default function ViewModal({isOpen, isClose, content}:any) {
             
     
             <div className='w-full mt-3 bg-black'>
-              <img width={100}  src={content?.image} alt="" />
+              <a href={content?.image} target="_blank">
+              <img width={100}  src={content?.image}  alt="" /></a>
             </div>
     
             <div className='w-full flex justify-between p-1 mt-3'>

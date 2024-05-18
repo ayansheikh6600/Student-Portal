@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
-import { Button } from "@mui/material";
+import { Button, Modal, TextField } from "@mui/material";
 import ViewModal from '../ViewModal/index';
 
 interface MediaProps {
@@ -16,6 +16,43 @@ function Media(props: MediaProps) {
 
   const [content, setContent] = React.useState()
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [turnId, setTurnId] = React.useState("");
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+   function BasicModal() {
+    
+    const style = {
+      position: 'absolute' as 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+    };
+    return (
+      <div>
+        
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+          <TextField id="outlined-basic"  sx={{
+          width:"100%"
+        }}  label="Enter your Repo Link" variant="outlined" />
+            
+          </Box>
+        </Modal>
+      </div>
+    );
+  }
 
   return (
     <Grid
@@ -107,10 +144,13 @@ function Media(props: MediaProps) {
                   ""
                 )}
 
-                <div className="bg-black">
-                  <Button onClick={()=>{setContent(item), setIsModalOpen(!isModalOpen)}}>Visit</Button>
-                  <ViewModal isOpen={isModalOpen} isClose={setIsModalOpen} content={content}/>
+                <div className="flex justify-between">
+                  <Button variant="contained" onClick={()=>{setContent(item), setIsModalOpen(!isModalOpen)}}>Visit</Button>
+                  <Button variant="contained" onClick={()=>{handleOpen(), setTurnId(item?._id)}}>Turn In</Button>
+                  
                 </div>
+                <ViewModal isOpen={isModalOpen} isClose={setIsModalOpen} content={content}/>
+                <BasicModal/>
               </Box>
             ) : (
               <Box sx={{ pt: 0.5 }}>
