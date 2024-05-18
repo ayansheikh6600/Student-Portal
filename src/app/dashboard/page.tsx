@@ -14,7 +14,7 @@ const Dashboard = () => {
       const storedUser = localStorage.getItem("user");
         
          const data = storedUser ? JSON.parse(storedUser) : null;
-         console.log(data?.user);
+        //  console.log(data?.user);
 
        setUser(data?.user)
         // console.log(user?.userType);
@@ -27,7 +27,7 @@ const Dashboard = () => {
         
       }, []);
 
-      console.log(user);
+      // console.log(user);
       
 
       const Slect = ()=>{

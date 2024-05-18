@@ -20,7 +20,7 @@ const StudentComp = () => {
       const res = await axios.get(
         "api/add-assignment"
       );
-      console.log(res.data);
+      // console.log(res.data);
       setApiData(res.data.data);
     })();
 

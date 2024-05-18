@@ -28,7 +28,7 @@ const AdminCom = ({ user }) => {
       const res = await axios.get("/api/add-assignment");
       const data = await axios.get("/api/topic")
 
-      console.log(data.data.data);
+      // console.log(data.data.data);
 
       setAssignmentdata(res.data.data);
       setTopicApiData(data.data.data);

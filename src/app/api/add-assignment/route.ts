@@ -113,7 +113,7 @@ export const PUT = async (req: Request, res: NextApiResponse) => {
         } else {
           return NextResponse.json(
             { message: "Update Successfully", data: assignments },
-            { status: 204 }
+            { status: 200 }
           );
         }
       } else {

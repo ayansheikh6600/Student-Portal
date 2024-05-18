@@ -20,13 +20,13 @@ const Login = () => {
       (async()=>{
         const storedUser = localStorage.getItem("user");
         const user =  storedUser ? JSON.parse(storedUser) : null;
-        console.log(user);
+        // console.log(user);
 
 
         
         if (user) {
           const token = await axios.post("api/userverify", user)
-          console.log(token.data.token.userId);
+          // console.log(token.data.token.userId);
           
           if (token.data.token.userId === user.user._id) {
             router.push("/dashboard")
