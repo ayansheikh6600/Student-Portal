@@ -37,7 +37,7 @@ const Dashboard = () => {
         }else if (user?.userType == "admin"){
           return <AdminCom user={user} />
         }else{
-          <SerniorStdComp/>
+          return <SerniorStdComp/>
         }
       }
  

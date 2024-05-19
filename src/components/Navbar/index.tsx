@@ -177,7 +177,7 @@ function ResponsiveAppBar() {
                                     </MenuItem>
                                 ))}
                                 <MenuItem key={"Logout"} onClick={handleCloseUserMenu}>
-                                        <Typography component="button" onClick={()=>{localStorage.clear(), router.push("/")}
+                                        <Typography component="button" onClick={()=>{localStorage.clear(), router.refresh()}
                                         }  textAlign="center">{"Logout"}</Typography>
                                     </MenuItem>
                             </Menu></> : <Button

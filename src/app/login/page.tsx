@@ -9,49 +9,49 @@ import Link from 'next/link'
 
 const Login = () => {
 
-    const [email, setEmail] = useState("")
-    const [password, setPasswd] = useState("")
-    const router = useRouter();
+  const [email, setEmail] = useState("")
+  const [password, setPasswd] = useState("")
+  const router = useRouter();
 
-    useEffect(()=>{
-
-      
-
-      (async()=>{
-        const storedUser = localStorage.getItem("user");
-        const user =  storedUser ? JSON.parse(storedUser) : null;
-        // console.log(user);
+  useEffect(() => {
 
 
-        
-        if (user) {
-          const token = await axios.post("api/userverify", user)
-          // console.log(token.data.token.userId);
-          
-          if (token.data.token.userId === user.user._id) {
-            router.push("/dashboard")
-          }
+
+    (async () => {
+      const storedUser = localStorage.getItem("user");
+      const user = storedUser ? JSON.parse(storedUser) : null;
+      // console.log(user);
+
+
+
+      if (user) {
+        const token = await axios.post("api/userverify", user)
+        // console.log(token.data.token.userId);
+
+        if (token.data.token.userId === user.user._id) {
+          router.push("/dashboard")
         }
-      })()
-     
-      
-    },[])
+      }
+    })()
 
-    const signinFunc = async (e:any) => {
-        e.preventDefault();
-    
-        if(!email&& !password){
-            return alert("Please Fill required Feilds")
-        }
 
-        const res = await axios.post("api/login", {email, password})
+  }, [])
 
-        console.log(res.data)
+  const signinFunc = async (e: any) => {
+    e.preventDefault();
 
-        localStorage.setItem("user", JSON.stringify(res.data.userData))
-        router.push('/dashboard');
+    if (!email && !password) {
+      return alert("Please Fill required Feilds")
+    }
 
-      };
+    const res = await axios.post("api/login", { email, password })
+
+    console.log(res.data)
+
+    localStorage.setItem("user", JSON.stringify(res.data.userData))
+    router.push('/dashboard');
+
+  };
 
 
   return (
@@ -84,7 +84,7 @@ const Login = () => {
                   type="email"
                   autoComplete="email"
                   required
-onChange={(e)=>setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -114,7 +114,7 @@ onChange={(e)=>setEmail(e.target.value)}
                   type="password"
                   autoComplete="current-password"
                   required
-                  onChange={(e)=>setPasswd(e.target.value)}
+                  onChange={(e) => setPasswd(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
