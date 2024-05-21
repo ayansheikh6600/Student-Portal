@@ -55,6 +55,7 @@ const AdminCom = ({ user }) => {
 
     const res = await axios.post("/api/add-assignment", obj);
 
+    router.refresh()
     // console.log(res);
   };
 
@@ -79,6 +80,8 @@ const AdminCom = ({ user }) => {
       setTopicTitle("")
       setTopicVideo("")
     }
+
+    router.refresh()
 
   }
 
