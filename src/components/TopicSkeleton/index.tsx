@@ -1,9 +1,8 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Skeleton from "@mui/material/Skeleton";
-import { Button, Modal, TextField } from "@mui/material";
+
+import { Button, Modal, Skeleton, TextField, Typography } from "@mui/material";
 import ViewModal from '../ViewModal/index';
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -91,7 +90,7 @@ function Media(props: MediaProps) {
           <Box sx={style}>
             <TextField id="outlined-basic" sx={{
               width: "100%"
-            }} label="Enter your Repo Link" defaultValue={repoLink} variant="outlined" onChange={(e) => setRepoLink(e.target.value)} />
+            }} label="Enter your Repo Link" defaultValue={repoLink} variant="outlined" onChange={(e:any) => setRepoLink(e.target.value)} />
             <Button variant="contained" onClick={() => {
               turnApiFun()
             }}>Turn In</Button>
