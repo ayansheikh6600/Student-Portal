@@ -199,7 +199,9 @@ function Media(props: MediaProps) {
                     
                     
                   })}
-                  {test?<Button variant="contained" disabled >Turn In</Button>: <Button variant="contained" onClick={()=>{setTurnId(item?._id), handleOpen()}} >Turn In</Button>}
+
+                  {item?.turnIn ? test? <Button variant="contained" disabled >Turn In</Button>: <Button variant="contained" onClick={()=>{setTurnId(item?._id), handleOpen()}} >Turn In</Button>: ""}
+                 
 
                 </div>
                 <ViewModal isOpen={isModalOpen} isClose={setIsModalOpen} content={content} />
