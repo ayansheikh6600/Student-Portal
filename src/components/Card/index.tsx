@@ -5,7 +5,7 @@ import * as React from 'react';
 export default function MediaCard({item,candidateShow,
     isShow,
     setcandidateData}:any) {
-    console.log(item);
+    // console.log(item);
     
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -24,16 +24,21 @@ export default function MediaCard({item,candidateShow,
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {item?.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {item?.desc}
         </Typography>
+        <span className='font-bold text-[12px]'>
+          Resource Link: 
+        <Typography variant="body2" color="text.secondary" component="a" href={item?.otherLink} target='_blank'>
+          {item?.otherLink}
+        </Typography>
+
+        </span>
       </CardContent>
       <CardActions>
-        <Button size="small" variant="contained">Visit</Button>
-        <Button onClick={()=>{setcandidateData(item), candidateShow(true)}} size="small">View Candidates</Button>
+        <Button variant='contained' onClick={()=>{setcandidateData(item), candidateShow(true)}} size="small">View Candidates</Button>
       </CardActions>
     </Card>
   );

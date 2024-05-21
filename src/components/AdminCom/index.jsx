@@ -3,8 +3,9 @@ import { fileUploader } from "@/libs/fileUpload";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import BasicModal from "../Modal";
-import { Switch, TextField } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardMedia, Grid, Switch, TextField, Typography } from "@mui/material";
 import YouTube from "../TopicSkeleton";
+import { useRouter } from "next/navigation";
 
 const AdminCom = ({ user }) => {
   // console.log(user, "userhhh");
@@ -20,6 +21,7 @@ const AdminCom = ({ user }) => {
   const [topicDesc, setTopicDes] = useState("")
   const [topicVideo, setTopicVideo] = useState("")
   const [topicApiData, setTopicApiData] = useState()
+  const router = useRouter()
 
   // console.log(isShow);
 
@@ -56,22 +58,22 @@ const AdminCom = ({ user }) => {
     // console.log(res);
   };
 
-  const AddTopic = async()=>{
+  const AddTopic = async () => {
 
-    if(!topicDesc && !topicTilte && !topicVideo){
+    if (!topicDesc && !topicTilte && !topicVideo) {
       return alert("please fill req feilds")
     }
 
     const obj = {
-      title : topicTilte,
-      desc : topicDesc,
-      videoUrl : topicVideo,
+      title: topicTilte,
+      desc: topicDesc,
+      videoUrl: topicVideo,
       user: user,
     };
 
     const res = await axios.post("/api/topic", obj);
 
-    if(res.data){
+    if (res.data) {
       alert("Successfully Add")
       setTopicDes("")
       setTopicTitle("")
@@ -86,10 +88,16 @@ const AdminCom = ({ user }) => {
         <div>
           <h1 className="text-2xl text-center font-bold">Admin Dashboard</h1>
         </div>
-        <div className="flex items-center justify-end">
+        <div className="flex justify-between items-center">
+          <div className="hover:text-blue-600 cursor-pointer" onClick={()=>router.push("/dashboard/student-signup")}>
+            Create Senior Student Account
+          </div>
+          <div className="flex items-center justify-end">
           <h1>Assign Topic</h1>
           <Switch onChange={() => setIsShow(!isShow)} />
           <h1>Assign Assignment</h1>
+          </div>
+          
         </div>
 
         {isShow ? <><div className="flex flex-col  gap-2 p-5">
@@ -120,30 +128,58 @@ const AdminCom = ({ user }) => {
           <div>
             <div className="w-full pt-3">
               <h1 className="text-3xl text-center">Assigments</h1>
-              {assignmentData?.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="w-[90%] mt-4 rounded-md mx-auto bg-red-400 flex justify-between px-3 items-center"
-                  >
-                    <div className="p-2 ">
-                      <h1 className="text-xl">{item.title}</h1>
-                      <p className="text-sm">Assign by {item.user.userName}</p>
-                    </div>
-                    <div className="flex gap-3">
-                      <button onClick={() => { setContent(item), setIsOpen(true) }} className="bg-green-500 px-3 py-1 rounded-md">
-                        Edit
-                      </button>
+              {
+                assignmentData? <Grid
+                container
+                spacing={{ xs: 2, md: 3 }}
+                columns={{ xs: 1, sm: 4, md: 6, lg: 8 }}
+                sx={{
+                  display: { xs: "flex" },
+                  flexDirection: { xs: "column", sm: "row" },
+                  justifyContent: { xs: "center", sm: "flex-start", md: "center" },
+                  alignItems: "center",
+                  padding: 2,
+                }}
+              >
+                {assignmentData?.map((item, index) => {
+                  return (
+                    <Grid item xs={1} sm={2} md={2} key={index}>
+
+                      <Card sx={{ maxWidth: 345 }}>
+                        <CardMedia
+                          sx={{ height: 140 }}
+                          image={item?.image}
+                          title="green iguana"
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="div">
+                            {item?.title}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {item?.desc}
+                          </Typography>
+                          <span className='font-bold text-[12px]'>
+                            Resource Link:
+                            <Typography variant="body2" color="text.secondary" component="a" href={item?.otherLink} target='_blank'>
+                              {item?.otherLink}
+                            </Typography>
+
+                          </span>
+                        </CardContent>
+                        <CardActions>
+                          <Button variant='contained' onClick={() => { setContent(item), setIsOpen(true) }} size="small">Edit</Button>
+                        </CardActions>
+                      </Card>
                       <BasicModal isOpen={isOpen} isClose={setIsOpen} content={content} />
-                      <button className="bg-green-500 px-3 py-1 rounded-md">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+                    </Grid>
+                    
+                  );
+                })}
+              </Grid> :<YouTube/>
+              }
+              
             </div>
-          </div></> :<>
+          </div></> : <>
           <div className="flex flex-col  gap-2 p-5">
             <TextField id="outlined-basic" sx={{
               width: "100%",
@@ -167,10 +203,10 @@ const AdminCom = ({ user }) => {
           </div>
           <div className="">
             <h1 className="text-2xl font-bold text-center">{"Topic's"}</h1>
-            <YouTube data={topicApiData}/>
+            <YouTube data={topicApiData} />
           </div>
-          </>
-          }
+        </>
+        }
 
       </div>
     </div>
